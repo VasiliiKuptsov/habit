@@ -98,7 +98,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no elena@130.193.58.114 << 'EOF'
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my_app:${{ github.sha }}
-          docker stop my_habit || true
+          docker stop my_app || true
           docker rm my_app || true
           docker run -d --name my_app -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/my_app:${{ github.sha }}
           EOF
