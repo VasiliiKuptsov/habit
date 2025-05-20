@@ -96,7 +96,7 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no elena@130.193.58.114 << 'EOF'
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my_habit:${{ github.sha }}
           docker stop my_habit || true
           docker rm my_habit || true
