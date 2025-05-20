@@ -36,13 +36,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -70,11 +70,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "NAME": "habit",
+        "USER": "postgres",
+        "PASSWORD": "1705",
+        "HOST": "localhost",
+        "PORT": "5432",
+        "TEST": {
+            "NAME": 'test_habit',
+            "CHARSET": "UTF8"
+        }
     }
 }
 
@@ -146,10 +150,10 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 CELERY_BEAT_SCHEDULE = {
-     'TelegramBot': {
-         'task': 'habits.tasks.send_message_to_bot',
-         'schedule': timedelta(minutes=1),
-     },
+    'TelegramBot': {
+       'task': 'habits.tasks.send_message_to_bot',
+       'schedule': timedelta(minutes=1),
+    },
  }
 
 CORS_ALLOWED_ORIGINS = [
@@ -157,6 +161,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://read-only.example.com",
     "https://read-and-write.example.com",
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "https://read-and-write.example.com",
