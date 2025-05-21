@@ -17,10 +17,10 @@ services:
     env_file:
       - ./.env
     environment:
-      - DEBUG=False          # <- '-' обязателен для элементов списка
-      - DATABASE_HOST=db    # <- Исправлено
+      - DEBUG=False
+      - DATABASE_HOST=db
 
-  nginx:                    # <- Было смещение, исправлено
+  nginx:
     build:
       context: ./nginx
     ports:
